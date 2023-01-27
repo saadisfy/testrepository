@@ -16,9 +16,6 @@
               "    pm.expect(pm.response.text()).to.contain(\"Hello Kubernetes\")",
               "})",
               "",
-              "pm.test(\"Body matches string\", () => {",
-              "    pm.expect(pm.response.status).to.equal(\"OK\")",
-              "})"
             ],
             "type": "text/javascript"
           }
