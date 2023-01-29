@@ -25,7 +25,7 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "10.43.55.112",
+          "raw": "10.43.135.180",
           "protocol": "http",
           "host": [
             "hello-kubernetes-service",
