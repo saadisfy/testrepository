@@ -1,0 +1,16 @@
+apiVersion: tests.testkube.io/v3
+kind: Test
+metadata:
+  labels:
+    app.kubernetes.io/instance: alltests
+  name: cypress
+  namespace: testkube
+spec:
+  content:
+    repository:
+      branch: main
+      path: cypress
+      type: git-dir
+      uri: 'https://github.com/saadisfy/testrepository.git'
+    type: git-dir
+  type: cypress/project
