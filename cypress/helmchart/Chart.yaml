@@ -1,0 +1,4 @@
+name: cypresstestchart
+version: 0.0.1
+description: trying out to create test in testkube through helmchart with crds in repo 
+apiVersion: v1

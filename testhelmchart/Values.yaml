@@ -1,0 +1,13 @@
+tests:
+  name: cypress-gitdirectory-kubectlcommand #cypress-{{ .Release.Name }} # Test name prefix, {{ .Release.Name }} is appended. i.e. 
+  content:
+    path: cypress/examples
+    type: git-dir
+  # Test type https://kubeshop.github.io/testkube/category/testtypes
+  type: cypress/project
+  servicelayers:
+  release:
+    chart:
+    name: test-config
+    version: 0.0.1
+  namespace: c000

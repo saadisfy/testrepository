@@ -1,0 +1,4 @@
+name: test-helmchart
+version: 0.0.1
+description: This Helm Chart creates Test objects for Testkube 
+apiVersion: v1

@@ -1,0 +1,19 @@
+# cypress path has to show to the directory which contains the package.json to run the tests,
+# it needs the script for "npm test"
+
+apiVersion: tests.testkube.io/v3
+kind: Test
+metadata:
+  labels:
+    saad: mygithubtests
+  name: {{(.Values.tests).name | default "namefailed" | quote }}
+  namespace: testkube
+spec:
+  content:
+    repository:
+      branch: main
+      path: cypress/examples/
+      type: {{((.Values.tests).content).type}}
+      uri: https://github.com/saadisfy/testrepository
+    type: {{((.Values).tests).type}}
+  type: cypress/project
