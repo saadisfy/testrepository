@@ -1,7 +1,7 @@
 # cypress path has to show to the directory which contains the package.json to run the cypresstest,
 # it needs the script for "npm test"
 
-apiVersion: cypresstest.testkube.io/v3
+apiVersion: tests.testkube.io/v3
 kind: Test
 metadata:
   name: {{.Values.cypresstest.name}}-{{ .Release.Name }}
