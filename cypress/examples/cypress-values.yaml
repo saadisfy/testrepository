@@ -1,3 +1,4 @@
+ #helm install cypress-esthelmchart ./testhelmchart -f ./cypress/examples/cypress-values.yaml
 tests:
   name: cypress # Test name prefix, {{ .Release.Name }} is appended. i.e. 
   content:

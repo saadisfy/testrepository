@@ -1,4 +1,4 @@
-cypresstest:
+cypresstests:
   name: cypress # Test name prefix, {{ .Release.Name }} is appended. i.e. 
   content:
     uri: https://github.com/saadisfy/testrepository

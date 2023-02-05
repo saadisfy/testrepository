@@ -1,19 +1,19 @@
-# cypress path has to show to the directory which contains the package.json to run the cypresstest,
+# cypress path has to show to the directory which contains the package.json to run the tests,
 # it needs the script for "npm test"
 
 apiVersion: tests.testkube.io/v3
 kind: Test
 metadata:
-  name: {{.Values.cypresstest.name | default "failedname" }}-{{ .Release.Name }}
+  name: {{.Values.tests.name | default "failedname" }}-{{ .Release.Name }}
   namespace: testkube
   labels:
-    saad: mygithubcypresstest
+    saad: mygithubtests
 spec:
   content:
     repository:
-      branch: {{((.Values.cypresstest).content).branch}}
-      path:  {{((.Values.cypresstest).content).path}} #path to the test directory e.g. in cypress path to the package.json containing the script 'npm test'
-      type: {{((.Values.cypresstest).content).type}}
-      uri: {{((.Values.cypresstest).content).uri}} # url to git repository , doesn't need the suffix ".git" 
-    type: {{((.Values.cypresstest).content).type}} # type is needed in repository and in content e.g. git-dir, git-file, string
-  type: {{((.Values).cypresstest).type}} #test type e.g. cypress/project
+      branch: {{((.Values.tests).content).branch}}
+      path:  {{((.Values.tests).content).path}} #path to the test directory e.g. in cypress path to the package.json containing the script 'npm test'
+      type: {{((.Values.tests).content).type}}
+      uri: {{((.Values.tests).content).uri}} # url to git repository , doesn't need the suffix ".git" 
+    type: {{((.Values.tests).content).type}} # type is needed in repository and in content e.g. git-dir, git-file, string
+  type: {{((.Values).tests).type}} #test type e.g. cypress/project

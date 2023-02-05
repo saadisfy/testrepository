@@ -1,10 +1,11 @@
+ #helm install postman-testhelmchart ./testhelmchart -f ./postman-collections/postman-values.yaml 
 tests:
   name: postman-collection-as-gitfile # Test name prefix, {{ .Release.Name }} is appended. i.e. 
   content:
-    repository:
-      uri: https://github.com/saadisfy/testrepository
-      path: postman-collections/kubeshopexample.json
-      type: git-file
+      repository:
+        uri: https://github.com/saadisfy/testrepository
+        path: postman-collections/kubeshopexample.json
+        type: git-file
   # Test type https://kubeshop.github.io/testkube/category/testtypes
   type: postman/collection
 OtherMetaData:
