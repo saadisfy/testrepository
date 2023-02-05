@@ -4,16 +4,16 @@
 apiVersion: tests.testkube.io/v3
 kind: Test
 metadata:
+  name: {{.Values.tests.name}}-{{ .Release.Name }}
+  namespace: testkube
   labels:
     saad: mygithubtests
-  name: {{(.Values.tests).name | quote }}
-  namespace: testkube
 spec:
   content:
     repository:
-      branch: main
-      path: cypress/examples/
+      branch: {{((.Values.tests).content).branch}}
+      path:  {{((.Values.tests).content).path}} #path to the test directory e.g. in cypress path to the package.json containing the script 'npm test'
       type: {{((.Values.tests).content).type}}
-      uri: https://github.com/saadisfy/testrepository
-    type: {{((.Values).tests).type}}
-  type: cypress/project
+      uri: {{((.Values.tests).content).uri}} # url to git repository , doesn't need the suffix ".git" 
+    type: {{((.Values.tests).content).type}} # type is needed in repository and in content e.g. git-dir, git-file, string
+  type: {{((.Values).tests).type}} #test type e.g. cypress/project

@@ -1,13 +1,4 @@
-cypresstest:
-  name: cypress # Test name prefix, {{ .Release.Name }} is appended. i.e. 
-  content:
-    uri: https://github.com/saadisfy/testrepository
-    branch: main
-    path: cypress/examples
-    type: git-dir
-  # Test type https://kubeshop.github.io/testkube/category/testtypes
-  type: cypress/project
-postmancollection:
+tests:
   name: postman-collection-as-gitfile # Test name prefix, {{ .Release.Name }} is appended. i.e. 
   content:
       repository:

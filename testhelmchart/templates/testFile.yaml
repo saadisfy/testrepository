@@ -1,20 +1,20 @@
-# parsing cypress und co as single file is not implemented yet!
-# only works for curl , postman-collections
-# currently without annotation kubectl.kubernetes.io/last-applied-configuration  it asks to repatch this missing part
-    # example:     kubectl.kubernetes.io/last-applied-configuration : test.tests.testkube.io/postman-collection-as-gitfile
+# # parsing cypress und co as single file is not implemented yet!
+# # only works for curl , postman-collections
+# # currently without annotation kubectl.kubernetes.io/last-applied-configuration  it asks to repatch this missing part
+#     # example:     kubectl.kubernetes.io/last-applied-configuration : test.tests.testkube.io/postman-collection-as-gitfile
 
-apiVersion: tests.testkube.io/v3
-kind: Test
-metadata:
-  name: postman-collection-as-gitfile
-  namespace: testkube
-  annotations:
-spec:
-  content:
-    repository:
-      branch: main
-      path: postman-collections/kubeshopexample.json
-      type: git-file
-      uri: https://github.com/saadisfy/testrepository
-    type: git-file
-  type: postman/collection
+# apiVersion: tests.testkube.io/v3
+# kind: Test
+# metadata:
+#   name: {{.Values.postmancollection.name}}-{{ .Release.Name }}
+#   namespace: testkube
+#   annotations:
+# spec:
+#   content:
+#     repository:
+#       branch: {{((.Values.postmancollection).content).branch}}
+#       path:  {{((.Values.postmancollection).content).path}} #path to the test directory e.g. in cypress path to the package.json containing the script 'npm test'
+#       type: {{((.Values.postmancollection).content).type}}
+#       uri: {{((.Values.postmancollection).content).uri}} # url to git repository , doesn't need the suffix ".git" 
+#     type: {{((.Values.postmancollection).content).type}} # type is needed in repository and in content e.g. git-dir, git-file, string
+#   type: {{((.Values).postmancollection).type}} #test type e.g. cypress/project

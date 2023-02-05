@@ -1,4 +1,4 @@
-cypresstest:
+tests:
   name: cypress # Test name prefix, {{ .Release.Name }} is appended. i.e. 
   content:
     uri: https://github.com/saadisfy/testrepository
@@ -7,15 +7,6 @@ cypresstest:
     type: git-dir
   # Test type https://kubeshop.github.io/testkube/category/testtypes
   type: cypress/project
-postmancollection:
-  name: postman-collection-as-gitfile # Test name prefix, {{ .Release.Name }} is appended. i.e. 
-  content:
-      repository:
-        uri: https://github.com/saadisfy/testrepository
-        path: postman-collections/kubeshopexample.json
-        type: git-file
-  # Test type https://kubeshop.github.io/testkube/category/testtypes
-  type: postman/collection
 OtherMetaData:
   release:
     chart:
