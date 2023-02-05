@@ -6,7 +6,7 @@ kind: Test
 metadata:
   labels:
     saad: mygithubtests
-  name: {{(.Values.tests).name | default "namefailed" | quote }}
+  name: {{(.Values.tests).name | quote }}
   namespace: testkube
 spec:
   content:
