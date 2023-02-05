@@ -5,7 +5,7 @@ tests:
     type: git-dir
   # Test type https://kubeshop.github.io/testkube/category/testtypes
   type: cypress/project
-  servicelayers:
+OtherMetaData:
   release:
     chart:
     name: test-config
