@@ -4,7 +4,7 @@
 apiVersion: tests.testkube.io/v3
 kind: Test
 metadata:
-  name: {{.Values.cypresstest.name}}-{{ .Release.Name }}
+  name: {{.Values.cypresstest.name | default "failedname" }}-{{ .Release.Name }}
   namespace: testkube
   labels:
     saad: mygithubcypresstest
