@@ -1,19 +1,23 @@
-# cypress path has to show to the directory which contains the package.json to run the tests,
+# cypress path has to show to the directory which contains the package.json to run the cypresstests,
 # it needs the script for "npm test"
 
+{{ $releasename := .Release.Name }}
+{{- range .Values.tests }}
+--- # yaml document separator, so that helm knows while rendering that this will be multiple resources
 apiVersion: tests.testkube.io/v3
 kind: Test
 metadata:
-  name: {{.Values.tests.name | default "failedname" }}-{{ .Release.Name }}
+  name: {{ printf "%s-%s" .name $releasename }}
   namespace: testkube
   labels:
-    saad: mygithubtests
+    applicationrelated: .Values.applicationName
 spec:
   content:
     repository:
-      branch: {{((.Values.tests).content).branch}}
-      path:  {{((.Values.tests).content).path}} #path to the test directory e.g. in cypress path to the package.json containing the script 'npm test'
-      type: {{((.Values.tests).content).type}}
-      uri: {{((.Values.tests).content).uri}} # url to git repository , doesn't need the suffix ".git" 
-    type: {{((.Values.tests).content).type}} # type is needed in repository and in content e.g. git-dir, git-file, string
-  type: {{((.Values).tests).type}} #test type e.g. cypress/project
+      branch: {{.content.branch | quote }}
+      path:  {{.content.path | quote }} #path to the test directory e.g. in cypress path to the package.json containing the script 'npm test'
+      type: {{.content.type | quote }}
+      uri: {{.content.uri | quote }} # url to git repository , doesn't need the suffix ".git" 
+    type: {{.content.type | quote }} # type is needed in repository and in content e.g. git-dir, git-file, string
+  type: {{.type | quote }} #test type e.g. cypress/project
+{{- end }} 
