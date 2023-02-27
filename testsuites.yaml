@@ -1,0 +1,24 @@
+# {{ $releasename := .Release.Name }}
+# {{- range .Values.testsuites }}
+# --- # yaml document separator, so that helm knows while rendering that this will be multiple resources
+# apiVersion: tests.testkube.io/v2
+# kind: TestSuite
+# metadata:
+#   generation: 1
+#   name: {{ printf "%s%s" .name $releasename }} # because of that releasename must only consist of lower case alphanumeric characters, '-' or '.', and must start and end with an alphanumeric character
+#   namespace: testkube
+# spec:
+#   description: .description
+#   steps:
+# {{- range $k, $v := .steps }}
+# {{ if eq $k "name"}}
+#     - execute:
+#         name: {{ printf "%s-%s" $v $releasename | quote }} #should be put in helper function so it remains same as the one in tests.yaml
+# {{ else if eq $k "delayMilliseconds"}}
+#     - delay:
+#         duration: {{ $v }}
+# {{ else }}
+# {{- fail "value for .testsuites.steps.steps is not as expected" "" }}
+# {{- end }} 
+# {{- end }} 
+# {{- end }} 

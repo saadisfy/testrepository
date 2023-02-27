@@ -1,0 +1,16 @@
+apiVersion: executor.testkube.io/v1
+kind: Webhook
+metadata:
+  name: example-webhook
+  namespace: testkube
+spec:
+  uri: http://localhost:8080/events
+  events:
+  - start-test
+  - end-test
+  - end-test-success
+  - end-test-failed
+
+
+
+  #Here you'll be able to pass events depending on which webhooks you want to be triggered. Testkube will pass Event which can have type and testExecution or testsuiteExecution fields.
