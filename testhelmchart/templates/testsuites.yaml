@@ -11,6 +11,7 @@ metadata:
   namespace: testkube
 spec:
   description: someDescriptions
+  schedule: {{.schedule | quote }}
   steps:
 {{- range .steps }}
     {{ if .name }}

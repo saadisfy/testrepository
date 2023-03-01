@@ -1,17 +1,30 @@
+---
 tests:
   cypresstests:
-    enabled: false # if set to false, test object will not be deployed, and ignored if referenced in a testsuite
+    enabled: true # if set to false, test object will not be deployed, and ignored if referenced in a testsuite
     name: cypress # Test name prefix, {{ .Release.Name }} is appended. i.e. 
     content:
       uri: https://github.com/saadisfy/testrepository
       branch: main
       path: cypress/examples
-      type: git-dir
-    # Test type https://kubeshop.github.io/testkube/category/testtypes
+      type: git-dir # Test type https://kubeshop.github.io/testkube/category/testtypes
     type: cypress/project
+    variables:
+      firstvariable:
+        name: firstVariable
+        value: "value"
+        type: basic
+      secretVariable:
+        name: secretVariable
+        type: secret
+        valueFrom:
+            secretKeyRef:
+              name: asdf-testvars
+              key: secretVariable
     schedule: '*/15 * * * *'
   postmancollection:
     enabled: false 
+    
     name: postman-collection-as-gitdir # Test name prefix, {{ .Release.Name }} is appended. i.e. 
     content:
       uri: https://github.com/saadisfy/testrepository
@@ -19,7 +32,8 @@ tests:
       type: git-dir #git-file
     # Test type https://kubeshop.github.io/testkube/category/testtypes
     type: postman/collection
-    schedule: '*/1 * * * *'
+    schedule: '*/20 * * * *'
+    
   postmancollection1:
     enabled: false 
     name: postman-collection-as-gitfile # Test name prefix, {{ .Release.Name }} is appended. i.e. 
@@ -31,7 +45,7 @@ tests:
     type: postman/collection
     schedule: '*/5 * * * *'
   postmancollection2:
-    enabled: true 
+    enabled: false 
     name: postman-collection-as-string # Test name prefix, {{ .Release.Name }} is appended. i.e. 
     content:
       data: "{\n  \"info\": {\n    \"_postman_id\": \"02c90123-318f-4680-8bc2-640adabb45e8\",\n    \"name\": \"New Collection\",\n    \"schema\": \"https://schema.getpostman.com/json/collection/v2.1.0/collection.json\"\n  },\n  \"item\": [\n    {\n      \"name\": \"hello-world test\",\n      \"event\": [\n        {\n          \"listen\": \"test\",\n          \"script\": {\n            \"exec\": [\n              \"pm.test(\\\"Body matches string\\\", () => {\",\n              \"    pm.expect(pm.response.text()).to.contain(\\\"Hello Kubernetes\\\")\",\n              \"})\",\n              \"\"\n            ],\n            \"type\": \"text/javascript\"\n          }\n        }\n      ],\n      \"request\": {\n        \"method\": \"GET\",\n        \"header\": [],\n        \"url\": {\n          \"raw\": \"10.43.135.180\",\n          \"protocol\": \"http\",\n          \"host\": [\n            \"hello-kubernetes-service\",\n            \"default\"\n          ]\n        }\n      },\n      \"response\": []\n    }\n  ]\n}"
@@ -42,6 +56,7 @@ tests:
 testsuites:
     - name: firsttestsuite # Name must must only consist of lower case alphanumeric characters, '-' or '.', and must start and end with an alphanumeric character
       description: "made by an helmchart"
+      schedule: '*/15 * * * *'
       steps:
           - name: postman-collection-as-gitfile
           - delayMilliseconds: 20
@@ -57,3 +72,4 @@ OtherMetaData:
     name: test-config
     version: 0.0.1
   namespace: c000
+

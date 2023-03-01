@@ -1,3 +1,4 @@
+---
 # cypress path has to show to the directory which contains the package.json to run the cypresstests,
 # it needs the script for "npm test"
 
@@ -10,7 +11,12 @@ kind: Test
 metadata:
   name: {{ printf "%s-%s" .name $releasename }}
   namespace: testkube
-spec:
+spec: 
+  {{- if .variables}}
+  executionRequest:
+    variables:
+    {{- .variables | toYaml | nindent 6 -}}
+  {{ end }}
   {{- if ne .content.type "string"}}
   type: {{.type | quote }} #test type e.g. cypress/project or postman/collection
   content:
@@ -20,13 +26,17 @@ spec:
       type: {{.content.type | quote }}
       uri: {{.content.uri | quote }} # url to git repository , doesn't need the suffix ".git" 
     type: {{.content.type | quote }} # type is needed in repository and in content e.g. git-dir, git-file, string
-  schedule:  {{.schedule | quote }}
+   {{- if .schedule}}
+  schedule: {{ .schedule | quote }}
+  {{- end }}
   {{ else if eq .content.type "string" }}
   type: {{.type | quote }} #test type e.g. cypress/project or postman/collection
   content:
     type: {{.content.type | quote }}
     data: "{\n  \"info\": {\n    \"_postman_id\": \"02c90123-318f-4680-8bc2-640adabb45e8\",\n    \"name\": \"New Collection\",\n    \"schema\": \"https://schema.getpostman.com/json/collection/v2.1.0/collection.json\"\n  },\n  \"item\": [\n    {\n      \"name\": \"hello-world test\",\n      \"event\": [\n        {\n          \"listen\": \"test\",\n          \"script\": {\n            \"exec\": [\n              \"pm.test(\\\"Body matches string\\\", () => {\",\n              \"    pm.expect(pm.response.text()).to.contain(\\\"Hello Kubernetes\\\")\",\n              \"})\",\n              \"\"\n            ],\n            \"type\": \"text/javascript\"\n          }\n        }\n      ],\n      \"request\": {\n        \"method\": \"GET\",\n        \"header\": [],\n        \"url\": {\n          \"raw\": \"10.43.135.180\",\n          \"protocol\": \"http\",\n          \"host\": [\n            \"hello-kubernetes-service\",\n            \"default\"\n          ]\n        }\n      },\n      \"response\": []\n    }\n  ]\n}"
-  schedule: {{.schedule | quote }}
+  {{- if .schedule}}
+  schedule: {{ .schedule | quote }}
+  {{- end }}
   {{- end }} 
 {{- end }} 
 {{- end }} 
