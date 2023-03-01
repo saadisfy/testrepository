@@ -1,4 +1,3 @@
----
 tests:
   cypresstests:
     enabled: true # if set to false, test object will not be deployed, and ignored if referenced in a testsuite
@@ -24,7 +23,6 @@ tests:
     schedule: '*/15 * * * *'
   postmancollection:
     enabled: false 
-    
     name: postman-collection-as-gitdir # Test name prefix, {{ .Release.Name }} is appended. i.e. 
     content:
       uri: https://github.com/saadisfy/testrepository
@@ -33,7 +31,6 @@ tests:
     # Test type https://kubeshop.github.io/testkube/category/testtypes
     type: postman/collection
     schedule: '*/20 * * * *'
-    
   postmancollection1:
     enabled: false 
     name: postman-collection-as-gitfile # Test name prefix, {{ .Release.Name }} is appended. i.e. 

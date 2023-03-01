@@ -1,7 +1,5 @@
----
 # cypress path has to show to the directory which contains the package.json to run the cypresstests,
 # it needs the script for "npm test"
-
 {{ $releasename := .Release.Name }}
 {{- range .Values.tests }}
 {{- if .enabled}}
@@ -40,3 +38,31 @@ spec:
   {{- end }} 
 {{- end }} 
 {{- end }} 
+
+---
+apiVersion: tests.testkube.io/v3
+kind: Test
+metadata:
+  name: cypress-example
+  namespace: testkube
+spec:
+  executionRequest:
+    variables:
+      firstvariable:
+        name: firstVariable
+        type: basic
+        value: value
+      secretVariable:
+        name: secretVariable
+        type: secret
+        value: "somesecretvalue"
+  type: "cypress/project" #test type e.g. cypress/project or postman/collection
+  content:
+    repository:
+      branch: "main"
+      path:  "cypress/examples" #path to the test directory e.g. in cypress path to the package.json containing the script 'npm test'
+      type: "git-dir"
+      uri: "https://github.com/saadisfy/testrepository" # url to git repository , doesn't need the suffix ".git" 
+    type: "git-dir" # type is needed in repository and in content e.g. git-dir, git-file, string
+  schedule: "*/15 * * * *"
+   
